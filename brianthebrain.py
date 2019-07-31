@@ -13,5 +13,7 @@ class brian:
     def predict(self, data):
         return self.svm.predict(data)
         #demo data: [[2., 2.]]
+    def load():
+        self.data = pickle.
 #X = [[0, 0], [1, 1]]
 #y = [0, 1]
