@@ -1,4 +1,5 @@
 from brianthebrain import *
+import imageProcessor
 
 svm = brian('scale','rbf',1.0)
 
