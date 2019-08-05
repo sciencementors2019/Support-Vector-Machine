@@ -1,6 +1,7 @@
 from brianthebrain import *
 import imageProcessor
 
+imageBank = imageProcessor.newbundle
 svm = brian('scale','rbf',1.0)
 
 X = [[2, 2], [1, 1]]
