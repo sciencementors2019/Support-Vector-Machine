@@ -7,8 +7,30 @@ from sklearn import svm, linear_model
 from sklearn.model_selection import cross_validate
 import timeit
 
+
+#reading the data from the excel
+
+
+n_samples = 125150 #this is the number of images in our dataset
+n_features = 101 #num of features per feature vector
+data = np.empty((n_samples, n_features), dtype=np.int) #creates a 2d array with the first dimension number of samples and second number of features thus the matrix is 502 x 10 
+target = np.empty((n_samples), dtype=np.int) #creates a 1d array that is of length sample number ie 502
+qid = np.empty((n_samples), dtype=np.int)
+
+count = 0;	
+for line in f:
+	fields = line.split(';')
+	subcount = 0; 
+	#qid[count] = fields[0];
+	for i in range(1 , len(fields)):
+		if fields[i] == '\n':
+			continue
+		data[count, subcount] = (float(fields[i]))
+		subcount = subcount + 1
+	count = count + 1
+
 # split into train and test set
-cv = cross_validation.StratifiedShuffleSplit(target, test_size=.8) #TODO
+cv = cross_validate.StratifiedShuffleSplit(target, test_size=.8) #TODO
 train, test = iter(cv).next() #creates a test mask array and a train mask array. these arrays are the indexes of x and y that are assigned to each set
 
 X_train, y_train = data[train], target[train] #using the train index mask create an copy array of both x and y respectivly that is only filled with the training items
