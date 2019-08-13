@@ -126,7 +126,7 @@ print("Done")
 
 stop = timeit.default_timer()
 print("Execution Time: ")
-print stop - start 
+print(stop - start)
 #tau, _ = stats.kendalltau(
 #        np.dot(X_test, coef), y_test) #utilizing the coefficient, apply the devide to the test data to classify the x_test set
 #print('Kendall correlation coefficient: %.5f' % (tau))	
