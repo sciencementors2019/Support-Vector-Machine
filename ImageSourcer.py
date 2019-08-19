@@ -6,6 +6,7 @@ from imagePInternals import *
 import pickle
 from sklearn import model_selection
 from sklearn.linear_model import LogisticRegression
+import openpyxl
 
 Directory = 'C:/Users/hamis/Dropbox/Coding/Hamish/Vectorizer Python/shapes'
 os.chdir(Directory)
@@ -18,15 +19,14 @@ for folder in folders:
         imageFeature = imageProcessor(folder+'/'+path)
         img = imageFeature.img
         images.append(img)
-        labels.append(folders.index(folder))
+        labels.append(folder)
         imFeatures.append(imageFeature.detail())
 
 #Sorts the data into a Train/Test ratio of 1:5 / 20%:80%
 toTrain = 0
 trainLabels, testLabels = [],[]
 trainImages, testImages = [], []
-trainImages.append([])
-testImages.append([])
+
 for image, label, features in zip(images, labels, imFeatures):
     if toTrain < 5:
         #Appends the image data right next to the image itself to for the X value
@@ -36,6 +36,7 @@ for image, label, features in zip(images, labels, imFeatures):
     else:
         testImages.append([image, features["Vertices"], features["Perimeter"], features["SumOfAngles"], features["DistFromCentre"]])
         testLabels.append(label)
+    
         toTrain = 0
 
 #trainImages = np.array(trainImages, dtype = object)
@@ -43,21 +44,61 @@ for image, label, features in zip(images, labels, imFeatures):
 #trainLabels = np.array(trainLabels, dtype = object)
 #testLabels = np.array(testLabels, dtype = object)
 
-#Creates and sklearn model that can be used for the SVM
-trainModel = pd.DataFrame(trainImages)
-testModel = pd.DataFrame(testImages)
-trainLabels = pd.DataFrame(trainLabels)
-testLabels = pd.DataFrame(testLabels)
+#Goes through the process of writing each data model to an excel sheet
 
-#Saves as .csv file
-filenameTestModel = 'C:/Users/hamis/Documents/SVMModels/shape_test_model.csv'
-filenameTrainModel = 'C:/Users/hamis/Documents/SVMModels/shape_train_model.csv'
-filenameTestLabel = 'C:/Users/hamis/Documents/SVMModels/shape_test_label.csv'
-filenameTrainLabel = 'C:/Users/hamis/Documents/SVMModels/shape_train_label.csv'
-pickle.dump(trainModel, open(filenameTrainModel, 'wb'))
-pickle.dump(testModel, open(filenameTestModel, 'wb'))
-pickle.dump(trainLabels, open(filenameTrainLabel, 'wb'))
-pickle.dump(testLabels, open(filenameTestLabel, 'wb'))
+dataModels = openpyxl.Workbook()
+trainImagesSheet = dataModels.active
+trainImagesSheet = dataModels.create_sheet("xd")
+trainImagesSheet.title = "trainImagesSheet"
+
+rowNumber = 1
+
+for trainImage in trainImages:
+    
+    trainImagesSheet.cell(row = rowNumber, column = 1).value = (np.array2string(trainImage[0]))
+    trainImagesSheet.cell(row = rowNumber, column = 2).value = str(trainImage[1])
+    trainImagesSheet.cell(row = rowNumber, column = 3).value = str(trainImage[2])
+    trainImagesSheet.cell(row = rowNumber, column = 4).value = str(trainImage[3])
+    trainImagesSheet.cell(row = rowNumber, column = 5).value = str(trainImage[4])
+
+    rowNumber +=1
+
+testImagesSheet = dataModels.active
+testImagesSheet = dataModels.create_sheet("xd")
+testImagesSheet.title = "testImageSheet"
+
+rowNumber = 1
+
+for testImage in testImages:
+    testImagesSheet.cell(row = rowNumber, column = 1).value = (np.array2string(trainImage[0]))
+    testImagesSheet.cell(row = rowNumber, column = 2).value = str(testImage[1])
+    testImagesSheet.cell(row = rowNumber, column = 3).value = str(testImage[2])
+    testImagesSheet.cell(row = rowNumber, column = 4).value = str(testImage[3])
+    testImagesSheet.cell(row = rowNumber, column = 5).value = str(testImage[4])
+
+    rowNumber +=1
+
+rowNumber = 1
+trainLabelsSheet = dataModels.active
+trainLabelsSheet = dataModels.create_sheet("xd")
+trainLabelsSheet.title = "trainLabelsSheet"
+for trainLabel in trainLabels:
+    trainLabelsSheet.cell(row = rowNumber, column = 1).value = trainLabel
+
+    rowNumber += 1
+    
+testLabelsSheet = dataModels.active
+testLabelsSheet = dataModels.create_sheet("xd")
+testLabelsSheet.title = "testLabelsSheet"
+rowNumber = 1
+
+for testLabel in testLabels:
+    testLabelsSheet.cell(row = rowNumber, column = 1).value = testLabel
+    rowNumber += 1
+
+dataModels.save(filename = 'C:/Users/hamis/Documents/SVMModels/dataModels.xlsx')
+
+
 
 
 
