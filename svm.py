@@ -12,16 +12,18 @@ from dataread import *
 #reading the data from the excel
 
 
-n_samples = 125150 #this is the number of images in our dataset
-n_features = 101 #num of features per feature vector
+n_samples = 14970 #this is the number of images in our dataset
+n_features = 35 #num of features per feature vector
 data = np.empty((n_samples, n_features), dtype=np.int) #creates a 2d array with the first dimension number of samples and second number of features thus the matrix is 502 x 10 
 target = np.empty((n_samples), dtype=np.int) #creates a 1d array that is of length sample number ie 502
 qid = np.empty((n_samples), dtype=np.int)
 
-for y in range(10):
-    for x in rdf():
-        data[y,x].append(rdf()[x][y]);
-data.pop(0)
+trainDat = trainData()
+trainLabel = trainLabels()
+
+for y in range(n_samples):
+    for x in range(n_features):
+        data[y][x] = trainDat[x][y]
 print(data)
 
 # split into train and test set
