@@ -11,7 +11,3 @@ def trainData():
 def trainLabels():
     return pdf
 
-n_samples = 14970
-n_features = 35
-trainDat = trainData()
-print(trainDat[0][0])
