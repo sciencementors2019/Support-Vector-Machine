@@ -2,10 +2,11 @@ import pandas as pd
 from pandas import ExcelWriter
 from pandas import ExcelFile
 
-df = pd.read_excel('D:\\smc2019\\svM\\Data.xls.xlsx', sheet_name='Data', header=None) #You need `pip install xlrd` to do excel reading
+df = pd.read_excel('dataModels.xlsx', sheet_name='trainImagesSheet', header=None) #You need `pip install xlrd` to do excel reading
+pdf = pd.read_excel('dataModels.xlsx', sheet_name='trainLabelsSheet', header=None) #You need `pip install xlrd` to do excel reading
 
-def rdf():
+def trainData():
     return df
 
-def read(x,y):
-    return df[x][y]
+def trainLabels():
+    return pdf

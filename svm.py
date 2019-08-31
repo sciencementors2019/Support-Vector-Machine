@@ -6,6 +6,7 @@ import pylab as pl
 from sklearn import svm, linear_model
 from sklearn.model_selection import cross_validate
 import timeit
+from dataread import *
 
 
 #reading the data from the excel
@@ -17,17 +18,11 @@ data = np.empty((n_samples, n_features), dtype=np.int) #creates a 2d array with 
 target = np.empty((n_samples), dtype=np.int) #creates a 1d array that is of length sample number ie 502
 qid = np.empty((n_samples), dtype=np.int)
 
-count = 0;	
-for line in f:
-	fields = line.split(';')
-	subcount = 0; 
-	#qid[count] = fields[0];
-	for i in range(1 , len(fields)):
-		if fields[i] == '\n':
-			continue
-		data[count, subcount] = (float(fields[i]))
-		subcount = subcount + 1
-	count = count + 1
+for y in range(10):
+    for x in rdf():
+        data[y,x].append(rdf()[x][y]);
+data.pop(0)
+print(data)
 
 # split into train and test set
 cv = cross_validate.StratifiedShuffleSplit(target, test_size=.8) #TODO
