@@ -20,10 +20,12 @@ qid = np.empty((n_samples), dtype=np.int)
 
 trainDat = trainData()
 trainLabel = trainLabels()
-
+print(trainDat)
 for y in range(n_samples):
     for x in range(n_features):
-        data[y][x] = trainDat[x][y]
+        print(trainDat[x][y])
+        data[y][x] = trainDat[y][x]
+
 print(data)
 
 # split into train and test set
