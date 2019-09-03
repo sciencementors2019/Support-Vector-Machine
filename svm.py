@@ -36,7 +36,7 @@ for i in range(n_samples-1):
     if trainLabel[0][i] == 'star':# X axis is first index and Y is second!!!!! why numpy...
         target[i] = 3       
      
-print(target)
+# print(target)
 
 X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0.8)
 # split into train and test set
@@ -57,4 +57,9 @@ stop = timeit.default_timer()
 print("Execution Time: ")
 print(stop - start) 
 coef = clf.coef_.ravel() / linalg.norm(clf.coef_) #finds the coefficient of the seperation of the ranked trained set
-print(coef)
+finalmarginavg = 0
+for i in range(len(coef)):
+    finalmarginavg+=coef[i]
+finalmarginavg = finalmarginavg/3
+print("Margin Values: "+str(coef))
+print("Avg margin dist: "+ str(finalmarginavg))
