@@ -29,11 +29,11 @@ for i in range(n_samples-1):
     if trainLabel[0][i] == 'triangle':# X axis is first index and Y is second!!!!! why numpy...
         target[i] = 0  
     if trainLabel[0][i] == 'circle':# X axis is first index and Y is second!!!!! why numpy...
-        target[i] = 0  
+        target[i] = 1
     if trainLabel[0][i] == 'square':# X axis is first index and Y is second!!!!! why numpy...
-        target[i] = 0  
+        target[i] = 2  
     if trainLabel[0][i] == 'star':# X axis is first index and Y is second!!!!! why numpy...
-        target[i] = 0       
+        target[i] = 3       
      
 print(target)
 
@@ -48,7 +48,7 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0
 print("SVM starting")		
 #SVM        
 #clf = svm.SVC(kernel='linear', C=.1, class_weight='auto', cache_size=1000) #inits the SVM
-clf = svm.SVC(kernel='linear', C=.1, cache_size=1000) #inits the SVM
+clf = svm.SVC(kernel='linear', C=.1, cache_size=1000, verbose=True) #inits the SVM
 print("SVM created")
 clf.fit(X_train, y_train) #fits the ranked data to the vector space of the svm
 print("SVM fit")	
