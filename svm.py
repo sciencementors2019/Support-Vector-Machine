@@ -23,7 +23,7 @@ trainDat = trainData()
 trainLabel = trainLabels()
 # print(trainDat)
 for y in range(n_samples-1):
-    for x in range(1,n_features):
+    for x in range(n_features):
         data[y][x] = trainDat[x][y]# X axis is first index and Y is second!!!!! why numpy...
 
 for i in range(n_samples-1):
@@ -36,7 +36,6 @@ for i in range(n_samples-1):
     if trainLabel[0][i] == 'star':# X axis is first index and Y is second!!!!! why numpy...
         target[i] = 3       
      
-# print(target)
 
 X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0.8)
 # split into train and test set
@@ -54,12 +53,14 @@ print("SVM created")
 clf.fit(X_train, y_train) #fits the ranked data to the vector space of the svm
 print("SVM fit")	
 stop = timeit.default_timer()
-print("Execution Time: ")
-print(stop - start) 
+print("Execution Time: ") 
 coef = clf.coef_.ravel() / linalg.norm(clf.coef_) #finds the coefficient of the seperation of the ranked trained set
-finalmarginavg = 0
-for i in range(len(coef)):
-    finalmarginavg+=coef[i]
-finalmarginavg = finalmarginavg/3
-print("Margin Values: "+str(coef))
-print("Avg margin dist: "+ str(finalmarginavg))
+
+
+#for i in range(len(y_test)):
+    #clf_predict = clf.predict(X_test)
+    #print(str(clf_predict[i]) + ' ' + str(y_test[i]))
+
+clf_predict = clf.predict(X_test)
+print(clf_predict)
+print(clf.score(X_test, y_test))
