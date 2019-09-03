@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 import timeit
 from dataread import *
 
+start = timeit.default_timer()
 
 #reading the data from the excel
 
@@ -48,8 +49,12 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0
 print("SVM starting")		
 #SVM
 #clf = svm.SVC(kernel='linear', C=.1, class_weight='auto', cache_size=1000) #inits the SVM
-clf = svm.SVC(kernel='linear', C=.1, cache_size=1000, verbose=True) #inits the SVM
+clf = svm.SVC(kernel='linear', C=.1, cache_size=1000) #inits the SVM
 print("SVM created")
 clf.fit(X_train, y_train) #fits the ranked data to the vector space of the svm
 print("SVM fit")	
+stop = timeit.default_timer()
+print("Execution Time: ")
+print(stop - start) 
 coef = clf.coef_.ravel() / linalg.norm(clf.coef_) #finds the coefficient of the seperation of the ranked trained set
+print(coef)
