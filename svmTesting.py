@@ -25,7 +25,7 @@ for y in range(n_samples):
 print(labels[10])
 for y in range(n_samples):
     for x in range(1,n_features):
-        data[x][y] = trainDat[x][y]
+        data[y][x] = trainDat[x][y]
 print(data)
 
 X_train, X_test, y_train, y_test = train_test_split(data, labels, train_size = 0.8)
