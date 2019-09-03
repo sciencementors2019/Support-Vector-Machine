@@ -46,7 +46,7 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0
 # X_test, y_test, qid_test = data[test], target[test], qid[test] #using the test index mask create an copy array of both x and y respectivly that is only filled with the test items
 
 print("SVM starting")		
-#SVM        
+#SVM
 #clf = svm.SVC(kernel='linear', C=.1, class_weight='auto', cache_size=1000) #inits the SVM
 clf = svm.SVC(kernel='linear', C=.1, cache_size=1000, verbose=True) #inits the SVM
 print("SVM created")
