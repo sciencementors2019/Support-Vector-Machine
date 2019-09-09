@@ -54,8 +54,8 @@ avgscores = 0
 print("Initializing SVMs")
 for i in range(10000): #make that many svms and test them
     print("Initializing SVM: "+str(i))
-    thiscval = i/10000
-    svms.append(svm.SVC(kernel='linear', C=thiscval, cache_size=5000)) # C is random float between 0.0 and 1.0
+    thiscval = (i/10000)+0.0001
+    svms.append(svm.SVC(kernel='poly', C=thiscval, cache_size=5000)) # C is random float between 0.0 and 1.0
     #cache_size is faster if bigger
     print("C for SVM "+str(i)+" is "+str(thiscval))
     print("SVM "+str(i)+" Initialized training")
