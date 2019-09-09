@@ -47,14 +47,17 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0
 
 
 svms = []
+print("Initializing SVMs")
 for i in range(2):
+    print("Initializing SVM: "+str(i))
     svms.append(svm.SVC(kernel='linear', C=.1, cache_size=1000))
+    print("SVM "+str(i)+" Initialized training")
     svms[i].fit(X_train, y_train)
     coef = svms[i].coef_.ravel() / linalg.norm(svms[i].coef_)
     clf_predict = svms[i].predict(X_test)
-    print(clf_predict)
-    print(clf.score(X_test, y_test))
-print("SVM starting")
+    print("SVM "+str(i)+" X_test prediction: "+str(clf_predict))
+    print("SVM "+str(i)+" score: "+str(svms[i].score(X_test, y_test)))
+
 stop = timeit.default_timer()
 print("Execution Time: ")
 print(stop-start)
