@@ -50,11 +50,13 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0
 
 svms = []
 avgscore = 0
+avgscores = 0
 print("Initializing SVMs")
 for i in range(10): #make that many svms and test them
     print("Initializing SVM: "+str(i))
     X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0.8)
-    svms.append(svm.SVC(kernel='rbf', C=random(), gamma='auto', cache_size=5000)) # C is random float between 0.0 and 1.0
+    thiscval = random()
+    svms.append(svm.SVC(kernel='rbf', C=thiscval, gamma='auto', cache_size=5000)) # C is random float between 0.0 and 1.0
     #cache_size is faster if bigger
     
     print("SVM "+str(i)+" Initialized training")
@@ -68,7 +70,8 @@ for i in range(10): #make that many svms and test them
     print("SVM "+str(i)+" X_test prediction: "+str(clf_predict))
     print("SVM "+str(i)+" score: "+str(score))
     avgscore+=score
-avgscore = avgscore/avgscore
+    avgscores+=1
+avgscore = avgscore/avgscores
 print("The average score for the SVMs")
 print(avgscore)
 
