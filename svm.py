@@ -53,7 +53,8 @@ print("SVM created")
 clf.fit(X_train, y_train) #fits the ranked data to the vector space of the svm
 print("SVM fit")	
 stop = timeit.default_timer()
-print("Execution Time: ") 
+print("Execution Time: ")
+print(stop-start)
 coef = clf.coef_.ravel() / linalg.norm(clf.coef_) #finds the coefficient of the seperation of the ranked trained set
 
 
