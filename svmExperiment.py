@@ -56,7 +56,7 @@ for i in range(10): #make that many svms and test them
     print("Initializing SVM: "+str(i))
     X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0.8)
     thiscval = random()
-    svms.append(svm.SVC(kernel='precomputed', C=thiscval, cache_size=5000)) # C is random float between 0.0 and 1.0
+    svms.append(svm.SVC(kernel='poly', C=thiscval, cache_size=5000)) # C is random float between 0.0 and 1.0
     #cache_size is faster if bigger
     print("C for SVM "+str(i)+" is "+str(thiscval))
     print("SVM "+str(i)+" Initialized training")
