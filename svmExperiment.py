@@ -1,3 +1,5 @@
+import timeit
+start = timeit.default_timer()
 import itertools
 import numpy as np
 from scipy import stats
@@ -5,10 +7,10 @@ from scipy import linalg
 import pylab as pl
 from sklearn import svm, linear_model
 from sklearn.model_selection import train_test_split
-import timeit
+from random import random
 from dataread import *
 
-start = timeit.default_timer()
+
 
 #reading the data from the excel
 
@@ -47,16 +49,28 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0
 
 
 svms = []
+avgscore = 0
 print("Initializing SVMs")
-for i in range(2):
+for i in range(10): #make that many svms and test them
     print("Initializing SVM: "+str(i))
-    svms.append(svm.SVC(kernel='linear', C=.1, cache_size=1000))
+    X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0.8)
+    svms.append(svm.SVC(kernel='rbf', C=random(), gamma='auto', cache_size=5000)) # C is random float between 0.0 and 1.0
+    #cache_size is faster if bigger
+    
     print("SVM "+str(i)+" Initialized training")
-    svms[i].fit(X_train, y_train)
-    coef = svms[i].coef_.ravel() / linalg.norm(svms[i].coef_)
-    clf_predict = svms[i].predict(X_test)
+    svms[i].fit(X_train, y_train) # Train the selected svm
+
+    # coef = svms[i].coef_.ravel() / linalg.norm(svms[i].coef_)
+    clf_predict = svms[i].predict(X_test) #Predict values
+    score = svms[i].score(X_test, y_test) #Evaluate score
+
+    # print("SVM "+str(i)+" coef: "+sstr(coef))
     print("SVM "+str(i)+" X_test prediction: "+str(clf_predict))
-    print("SVM "+str(i)+" score: "+str(svms[i].score(X_test, y_test)))
+    print("SVM "+str(i)+" score: "+str(score))
+    avgscore+=score
+avgscore = avgscore/avgscore
+print("The average score for the SVMs")
+print(avgscore)
 
 stop = timeit.default_timer()
 print("Execution Time: ")

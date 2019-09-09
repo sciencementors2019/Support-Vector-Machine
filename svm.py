@@ -48,7 +48,7 @@ X_train, X_test, y_train, y_test = train_test_split(data, target, train_size = 0
 print("SVM starting")		
 #SVM
 #clf = svm.SVC(kernel='linear', C=.1, class_weight='auto', cache_size=1000) #inits the SVM
-clf = svm.SVC(kernel='linear', C=.1, cache_size=1000) #inits the SVM
+clf = svm.SVC(kernel='rbf', C=.1, gamma='auto', cache_size=1000) #inits the SVM
 print("SVM created")
 clf.fit(X_train, y_train) #fits the ranked data to the vector space of the svm
 print("SVM fit")	
